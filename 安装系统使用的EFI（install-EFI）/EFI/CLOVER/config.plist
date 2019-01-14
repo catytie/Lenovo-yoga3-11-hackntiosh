@@ -14,8 +14,12 @@
 			<false/>
 			<key>Fixes</key>
 			<dict>
+				<key>AddPNLF</key>
+				<true/>
 				<key>Comment-IRQ Fix</key>
 				<string>The following fixes may be needed for onboard audio/USB/etc</string>
+				<key>FakeLPC</key>
+				<false/>
 				<key>FixHPET</key>
 				<true/>
 				<key>FixIPIC</key>
@@ -25,7 +29,7 @@
 				<key>FixSBUS</key>
 				<false/>
 				<key>FixShutdown</key>
-				<true/>
+				<false/>
 				<key>FixTMR</key>
 				<false/>
 				<key>FixWAK</key>
@@ -415,12 +419,17 @@
 				</data>
 			</dict>
 		</array>
+		<key>Audio</key>
+		<dict>
+			<key>Inject</key>
+			<integer>3</integer>
+		</dict>
 		<key>USB</key>
 		<dict>
 			<key>AddClockID</key>
-			<true/>
+			<false/>
 			<key>FixOwnership</key>
-			<true/>
+			<false/>
 			<key>Inject</key>
 			<true/>
 		</dict>
@@ -467,6 +476,8 @@
 		<array>
 			<string>Preboot</string>
 		</array>
+		<key>Language</key>
+		<string>en:0</string>
 		<key>Mouse</key>
 		<dict>
 			<key>Enabled</key>
@@ -483,24 +494,17 @@
 			<key>Tool</key>
 			<true/>
 		</dict>
+		<key>ScreenResolution</key>
+		<string>1920x1080</string>
 		<key>Theme</key>
-		<string>black_green</string>
+		<string>Mojave4k</string>
 	</dict>
 	<key>Graphics</key>
 	<dict>
-		<key>DualLink</key>
-		<integer>0</integer>
 		<key>EDID</key>
 		<dict>
-			<key>Custom</key>
-			<data>
-			AP///////wBMg0pDAAAAAAAYAQOlHRF46rWVk1hWjSkfUFQAAAAB
-			AQEBAQEBAQEBAQEBAQEBI42AdMAIEHAwICUAJaUQAAAZI42A4MEI
-			9XAwICUAJaUQAAAZAAAA/gBTQU1TVU5HCiBMg1lMAAAA/gBMVE4x
-			MzNZTDAzTDAxAGk=
-			</data>
 			<key>Inject</key>
-			<true/>
+			<false/>
 			<key>ProductID</key>
 			<string>0x434a</string>
 			<key>VendorID</key>
@@ -570,20 +574,76 @@
 		<array>
 			<dict>
 				<key>Comment</key>
-				<string>change F%uT%04x to F%uTxxxx in AppleBacklightInjector.kext (credit RehabMan)</string>
+				<string>Enable TRIM for SSD</string>
 				<key>Disabled</key>
 				<false/>
 				<key>Find</key>
 				<data>
-				RiV1VCUwNHgA
+				AEFQUExFIFNTRAA=
 				</data>
 				<key>InfoPlistPatch</key>
 				<false/>
 				<key>Name</key>
-				<string>com.apple.driver.AppleBacklight</string>
+				<string>com.apple.iokit.IOAHCIBlockStorage</string>
 				<key>Replace</key>
 				<data>
-				RiV1VHh4eHgA
+				AAAAAAAAAAAAAAA=
+				</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>Prevent Apple I2C kexts from attaching to I2C controllers, credit CoolStar</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Find</key>
+				<data>
+				SU9LaXQ=
+				</data>
+				<key>InfoPlistPatch</key>
+				<true/>
+				<key>Name</key>
+				<string>com.apple.driver.AppleIntelLpssI2C</string>
+				<key>Replace</key>
+				<data>
+				SU9LaXM=
+				</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>Prevent Apple I2C kexts from attaching to I2C controllers, credit CoolStar</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Find</key>
+				<data>
+				SU9LaXQ=
+				</data>
+				<key>InfoPlistPatch</key>
+				<true/>
+				<key>Name</key>
+				<string>com.apple.driver.AppleIntelLpssI2CController</string>
+				<key>Replace</key>
+				<data>
+				SU9LaXM=
+				</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>Disable minStolenSize less or equal fStolenMemorySize assertion, 10.13 (based on Austere.J patch by Ricky)</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Find</key>
+				<data>
+				TIlFwHZE
+				</data>
+				<key>InfoPlistPatch</key>
+				<false/>
+				<key>MatchOS</key>
+				<string>10.13.x</string>
+				<key>Name</key>
+				<string>com.apple.driver.AppleIntelBDWGraphicsFramebuffer</string>
+				<key>Replace</key>
+				<data>
+				TIlFwOtE
 				</data>
 			</dict>
 		</array>
@@ -596,7 +656,7 @@
 		<string>0x67</string>
 		<key>ROM</key>
 		<data>
-		rc4O5KK9
+		EgY371dr
 		</data>
 	</dict>
 	<key>SMBIOS</key>
@@ -615,6 +675,8 @@
 		<string>Mac-BE0E8AC46FE800CC</string>
 		<key>BoardManufacturer</key>
 		<string>Apple Inc.</string>
+		<key>BoardSerialNumber</key>
+		<string>C02612270CDFF4G8C</string>
 		<key>BoardType</key>
 		<integer>10</integer>
 		<key>BoardVersion</key>
@@ -641,6 +703,10 @@
 		<string>0x1A</string>
 		<key>ProductName</key>
 		<string>MacBook8,1</string>
+		<key>SerialNumber</key>
+		<string>C02RG2AFGCN3</string>
+		<key>SmUUID</key>
+		<string>0B463946-9616-5019-984E-97DF58EF576B</string>
 		<key>Trust</key>
 		<true/>
 		<key>Version</key>
@@ -648,6 +714,8 @@
 	</dict>
 	<key>SystemParameters</key>
 	<dict>
+		<key>CustomUUID</key>
+		<string>0B463946-9616-5019-984E-97DF58EF576B</string>
 		<key>InjectKexts</key>
 		<string>Detect</string>
 	</dict>
